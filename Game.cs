@@ -1,3 +1,5 @@
+using System.Media;
+
 namespace Match_Game
 {
     public partial class Game : Form
@@ -18,8 +20,10 @@ namespace Match_Game
         {
             InitializeComponent();
             AssignIconsToSquares();
+            timer2.Start();
         }
 
+        SoundPlayer sounds = new SoundPlayer();
         private void AssignIconsToSquares()
         {
             foreach (Control control in table.Controls)
@@ -50,19 +54,22 @@ namespace Match_Game
                 }
                 if (firstClicked == null)
                 {
+                    sounds.Stream = Properties.Resources.click;
+                    sounds.Play();
                     firstClicked = clickLabel;
                     firstClicked.ForeColor = Color.Black;
                     return;
                 }
                 secondClicked = clickLabel;
                 secondClicked.ForeColor = Color.Black;
-
                 CheckForWinner();
 
                 if (firstClicked.Text == secondClicked.Text)
                 {
                     firstClicked = null;
                     secondClicked = null;
+                    sounds.Stream = Properties.Resources.correct;
+                    sounds.Play();
                     return;
                 }
                 timer1.Start();
@@ -87,14 +94,28 @@ namespace Match_Game
                 {
                     if (iconLabel.ForeColor == iconLabel.BackColor)
                     {
+                        sounds.Stream = Properties.Resources.error;
+                        sounds.Play(); 
                         return;
                     }
                 }
             }
-            MessageBox.Show("You Won the match game!", "Congratulations!");
+            timer2.Stop();
+            MessageBox.Show("You Won the match game!" + "\nCongratulations!\n" + myLabel);
             Close();
         }
-    }
+
+        private int i = 0;
+
+        private string myLabel;
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            i++;
+            myLabel = "Match Duration:" + i.ToString() + "seconds";
+        }
+    } 
 }
 
-       
+
+

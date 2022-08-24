@@ -50,6 +50,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.table.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -314,6 +315,12 @@
             this.timer1.Interval = 750;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -349,5 +356,6 @@
         private Label label4;
         private Label label3;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
     }
 }
